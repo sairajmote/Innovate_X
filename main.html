@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCOE-FLOW CONNECT - Academic Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/
+all.min.css">
+<link href="https://fonts.googleapis.com/css2?
+family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=s
+wap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+<i class="fas fa-check-circle"></i>
+<span id="toast-message">Operation completed successfully</span>
+</div>
+<!-- Student Details Modal -->
+<div class="modal-overlay" id="student-details-modal">
+<div class="modal">
+<div class="modal-header">
+<h3>Student Details</h3>
+<button class="modal-close" id="close-student-details">&times;</button>
+</div>
+<div class="modal-body">
+<div id="student-details-content">
+<!-- Student details will be populated here -->
+</div>
+</div>
+</div>
+</div>
+<!-- Intro Page -->
+<section id="intro-page" class="page active">
+<div class="intro-page">
+<div class="hero-section fade-in">
+<div class="logo-container">
+<div class="college-logo">
+<img src="collegeimg.jpg" alt="SCOE
+Logo" class="college-logo-img">
+</div>
+</div>
+<div class="hero-header">
+<h1>SCOE-FLOW CONNECT</h1>
+<h2>Academic Management System</h2>
+</div>
+<div class="hero-description">
+<p>A modern platform for managing academic processes, student performance, and
+institutional analytics with AI-powered insights.</p>
+</div>
+<div class="features">
+<div class="feature-item">
+<i class="fas fa-graduation-cap"></i>
+<h3>Student Management</h3>
+<p>Comprehensive tools for managing student information and academic
+progress.</p>
+</div>
+<div class="feature-item">
+<i class="fas fa-chart-line"></i>
+<h3>Performance Analytics</h3>
+<p>AI-powered analytics to track and improve student and institutional
+performance.</p>
+</div>
+<div class="feature-item">
+<i class="fas fa-tasks"></i>
+<h3>Automated Processes</h3>
+<p>Streamline administrative tasks with automated workflows and reporting.</p>
+</div>
+</div>
+<div class="cta-buttons">
+<button id="student-login-btn" class="btn-primary">
+<i class="fas fa-user-graduate"></i> Student Portal
+</button>
+<button id="admin-login-btn" class="btn-accent">
+<i class="fas fa-users-cog"></i> Admin Portal
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Student Login Page -->
+<section id="student-login-page" class="page">
+<div class="login-page">
+<div class="login-container card">
+<div class="login-header">
+<div class="college-logo">
+<img src="https://placehold.co/100x100/1a4f8b/white?text=SCOE" alt="SCOE
+Logo" class="college-logo-img">
+</div>
+<h2>Student Portal</h2>
+<p>Access your academic dashboard</p>
+</div>
+<div class="login-options">
+<div class="login-option active" data-form="login">Login</div>
+<div class="login-option" data-form="forgot">Forgot Password</div>
+</div>
+<form id="student-login-form" class="login-form active">
+<div class="form-group">
+<label for="student-id">Student ID</label>
+<input type="text" id="student-id" class="form-control" placeholder="Enter your
+student ID" required>
+</div>
+<div class="form-group">
+<label for="student-password">Password</label>
+<input type="password" id="student-password" class="form-control"
+placeholder="Enter your password" required>
+</div>
+<div class="form-group">
+<button type="submit" class="btn-primary" style="width: 100%;">Login to
+Dashboard</button>
+</div>
+</form>
+<form id="student-forgot-form" class="login-form">
+<div class="form-group">
+<label for="student-email">Registered Email</label>
+<input type="email" id="student-email" class="form-control" placeholder="Enter
+your registered email" required>
+</div>
+<div class="form-group">
+<button type="submit" class="btn-accent" style="width: 100%;">Reset
+Password</button>
+</div>
+</form>
+<p style="text-align: center; margin-top: 20px;">
+<a href="#" onclick="showPage('intro-page')"><i class="fas fa-arrow-left"></i> Back
+to Home</a>
+</p>
+</div>
+</div>
+</section>
+<!-- Student Dashboard -->
+<section id="student-dashboard" class="page">
+<header class="dashboard-header">
+<div class="header-left">
+<div class="header-logo">
+    <img src="collegeimg.jpg" alt="SCOE">
+</div>
+<h1>SCOE-FLOW CONNECT</h1>
+</div>
+<div class="header-user">
+<div class="user-avatar" id="student-avatar">JD</div>
+<div>
+<div id="student-name-display">John Doe</div>
+<small>Computer Engineering</small>
+</div>
+<button class="btn-secondary" onclick="logout()"><i class="fas fa-sign-out-alt"></i>
+Logout</button>
+</div>
+</header>
+<div class="dashboard-content">
+<div class="card profile-card">
+<div class="profile-header">
+<div class="profile-avatar" id="profile-avatar">JD</div>
+<div>
+<h2 id="profile-name">John Doe</h2>
+<p id="profile-dept">Computer Engineering</p>
+</div>
+</div>
+<div class="profile-details">
+<div>
+<div class="detail-item">
+<i class="fas fa-id-card"></i>
+<strong>Student ID:</strong> <span id="profile-id">SCOE2023001</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-calendar-alt"></i>
+<strong>Academic Year:</strong> 2023-2024
+</div>
+<div class="detail-item">
+<i class="fas fa-book"></i>
+<strong>Current Semester:</strong> 4th
+</div>
+</div>
+<div>
+<div class="detail-item">
+<i class="fas fa-envelope"></i>
+<strong>Email:</strong> john.doe@scoe.edu.in
+</div>
+<div class="detail-item">
+<i class="fas fa-phone"></i>
+<strong>Phone:</strong> +91 9876543210
+</div>
+<div class="detail-item">
+<i class="fas fa-map-marker-alt"></i>
+<strong>Address:</strong> Mumbai, Maharashtra
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Academic Progress</h3>
+<i class="fas fa-chart-line"></i>
+</div>
+<div id="progress-section">
+<div class="detail-item">
+<i class="fas fa-check-circle"></i>
+<strong>Status:</strong> <span id="academic-status" style="color: var(--
+success);">All Clear</span>
+</div>
+<div class="detail-item">
+<i class="fas fa-star"></i>
+<strong>CGPA:</strong> 8.72/10
+</div>
+<div class="progress-indicator">
+<div class="progress-bar" style="width: 87.2%;"></div>
+</div>
+<div class="detail-item">
+<i class="fas fa-credit-card"></i>
+<strong>Completed Credits:</strong> 68/120
+</div>
+<div class="progress-indicator">
+<div class="progress-bar" style="width: 56.7%;"></div>
+</div>
+<div class="detail-item">
+<i class="fas fa-tasks"></i>
+<strong>Attendance:</strong> 87%
+</div>
+<div class="progress-indicator">
+<div class="progress-bar" style="width: 87%;"></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">AI-Powered Analytics</h3>
+<i class="fas fa-robot"></i>
+</div>
+<div id="ai-analytics-panel">
+<div class="chart-container">
+<canvas id="performance-chart"></canvas>
+</div>
+<h4>Insights & Recommendations</h4>
+<textarea readonly class="form-control" style="min-height: 120px;">
+Based on your academic performance, you're excelling in Programming and Data Structures with
+scores above 85%.
+Consider spending more time on Discrete Mathematics to improve your scores from 72% to your
+target of 80%.
+Your overall performance is above average compared to your peers. Keep up the good work!
+</textarea>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Notifications</h3>
+<i class="fas fa-bell"></i>
+</div>
+<div id="notifications-panel">
+<div class="notification-item">
+<div class="notification-icon"><i class="fas fa-calendar-day"></i></div>
+<div class="notification-content">
+<p><strong>Exam Schedule Update</strong></p>
+<p>End Semester exams have been rescheduled to begin from May 15th.
+Please check the updated timetable.</p>
+<p class="notification-date">April 10, 2023</p>
+</div>
+</div>
+<div class="notification-item">
+<div class="notification-icon"><i class="fas fa-project-diagram"></i></div>
+<div class="notification-content">
+<p><strong>Project Submission</strong></p>
+<p>Last date for Web Technology project submission is April 25th. Submit to
+your department lead.</p>
+<p class="notification-date">April 5, 2023</p>
+</div>
+</div>
+<div class="notification-item">
+<div class="notification-icon"><i class="fas fa-book"></i></div>
+<div class="notification-content">
+<p><strong>Library Notice</strong></p>
+<p>Library will remain closed on April 14th for maintenance work. Please plan
+accordingly.</p>
+<p class="notification-date">April 2, 2023</p>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Upcoming Events</h3>
+<i class="fas fa-calendar-check"></i>
+</div>
+<div id="events-panel">
+<div class="notification-item">
+<div class="notification-icon"><i class="fas fa-graduation-cap"></i></div>
+<div class="notification-content">
+<p><strong>Industry Workshop</strong></p>
+<p>April 18, 2023 - Web Development with React.js</p>
+<p class="notification-date">10:00 AM - 4:00 PM</p>
+</div>
+</div>
+<div class="notification-item">
+<div class="notification-icon"><i class="fas fa-flask"></i></div>
+<div class="notification-content">
+<p><strong>Tech Festival</strong></p>
+<p>April 22-23, 2023 - Annual Technical Symposium</p>
+<p class="notification-date">Register by April 15</p>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Quick Actions</h3>
+<i class="fas fa-bolt"></i>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+<button class="btn-secondary"><i class="fas fa-download"></i> Download
+Marksheet</button>
+<button class="btn-secondary"><i class="fas fa-print"></i> Print Documents</
+button>
+<button class="btn-secondary"><i class="fas fa-book-open"></i> Course
+Materials</button>
+<button class="btn-secondary"><i class="fas fa-question-circle"></i> Request
+Support</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Admin Login Page -->
+<section id="admin-login-page" class="page">
+<div class="login-page">
+<div class="login-container card">
+<div class="login-header">
+<div class="college-logo">
+<img src="collegeimg.jpg" alt="SCOE
+Logo" class="college-logo-img">
+</div>
+<h2>Admin Portal</h2>
+<p>Manage academic operations</p>
+</div>
+<div class="login-options">
+<div class="login-option active" data-form="admin-login">Login</div>
+<div class="login-option" data-form="admin-forgot">Forgot Password</div>
+</div>
+<form id="admin-login-form" class="login-form active">
+<div class="form-group">
+<label for="admin-username">Username</label>
+<input type="text" id="admin-username" class="form-control"
+placeholder="Admin username" required>
+</div>
+<div class="form-group">
+<label for="admin-password">Password</label>
+<input type="password" id="admin-password" class="form-control"
+placeholder="Admin password" required>
+</div>
+<div class="form-group">
+<button type="submit" class="btn-accent" style="width: 100%;">Login to
+Dashboard</button>
+</div>
+</form>
+<form id="admin-forgot-form" class="login-form">
+<div class="form-group">
+<label for="admin-email">Admin Email</label>
+<input type="email" id="admin-email" class="form-control" placeholder="Enter
+your admin email" required>
+</div>
+<div class="form-group">
+<button type="submit" class="btn-primary" style="width: 100%;">Reset
+Password</button>
+</div>
+</form>
+<p style="text-align: center; margin-top: 20px;">
+<a href="#" onclick="showPage('intro-page')"><i class="fas fa-arrow-left"></i> Back
+to Home</a>
+</p>
+</div>
+</div>
+</section>
+<!-- Admin Dashboard -->
+<section id="admin-dashboard" class="page">
+<div class="admin-dashboard">
+<div class="admin-sidebar">
+<div class="sidebar-header">
+<div class="college-logo">
+<img src="collegeimg.jpg" alt="SCOE
+Logo" class="college-logo-img">
+</div>
+<h2>Admin Panel</h2>
+<p>SCOE-FLOW CONNECT</p>
+</div>
+<ul>
+<li class="admin-nav active" data-target="student-management-module">
+<i class="fas fa-user-graduate"></i> Student Management
+</li>
+<li class="admin-nav" data-target="marks-entry-module">
+<i class="fas fa-chart-bar"></i> Marks Entry
+</li>
+<li class="admin-nav" data-target="rules-reports-module">
+<i class="fas fa-file-alt"></i> Rules & Reports
+</li>
+<li class="admin-nav" data-target="faculty-management-module">
+<i class="fas fa-chalkboard-teacher"></i> Faculty Management
+</li>
+<li class="admin-nav" data-target="attendance-module">
+<i class="fas fa-calendar-check"></i> Attendance
+</li>
+<li class="admin-nav" data-target="analytics-module">
+<i class="fas fa-chart-pie"></i> Analytics
+</li>
+<li class="admin-nav" data-target="settings-module">
+<i class="fas fa-cog"></i> Settings
+</li>
+</ul>
+</div>
+<div class="admin-main">
+<header class="admin-main-header">
+<h2>Admin Dashboard</h2>
+<div class="header-user">
+<div class="user-avatar">AD</div>
+<div>
+<div>Admin User</div>
+<small>Administrator</small>
+</div>
+<button id="logout-admin-btn" class="btn-primary" onclick="logout()">
+<i class="fas fa-sign-out-alt"></i> Logout
+</button>
+</div>
+</header>
+<div class="admin-content">
+<!-- Student Management Module -->
+<div id="student-management-module" class="admin-module active">
+<h2>Student Management</h2>
+<div class="stats-container">
+<div class="stat-card">
+<i class="fas fa-users"></i>
+<div class="value">1,248</div>
+<div class="label">Total Students</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-user-graduate"></i>
+<div class="value">84%</div>
+<div class="label">Pass Percentage</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-chart-line"></i>
+<div class="value">92%</div>
+<div class="label">Average Attendance</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-book"></i>
+<div class="value">42</div>
+<div class="label">Courses Offered</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Import Students</h3>
+<i class="fas fa-file-import"></i>
+</div>
+<div class="file-upload" onclick="document.getElementById('student-fileinput').
+click()">
+<i class="fas fa-cloud-upload-alt"></i>
+<p>Click to upload Excel file or drag and drop</p>
+<p style="font-size: 0.8rem; color: var(--gray);">Supports .xls, .xlsx formats</
+p>
+</div>
+<input type="file" id="student-file-input" hidden accept=".xls,.xlsx">
+<div class="template-download">
+<div class="template-card">
+<i class="fas fa-file-excel" style="color: var(--success); font-size: 2rem;"></
+i>
+<h4>Student Template</h4>
+<p>Download the template for student data import</p>
+<button class="btn-success" onclick="downloadTemplate('student')">
+<i class="fas fa-download"></i> Download
+</button>
+<div class="template-structure">
+<h4>Expected Format:</h4>
+<ul>
+<li><strong>Student ID:</strong> SCOE2023001</li>
+<li><strong>Full Name:</strong> John Doe</li>
+<li><strong>Email:</strong> john.doe@scoe.edu.in</li>
+<li><strong>Department:</strong> Computer Engineering</li>
+<li><strong>Semester:</strong> 4</li>
+<li><strong>Phone:</strong> +91 9876543210</li>
+</ul>
+</div>
+</div>
+</div>
+<button id="import-students-btn" class="btn-primary"><i class="fas faupload"></
+i> Process Import</button>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Add Student Manually</h3>
+<i class="fas fa-user-plus"></i>
+</div>
+<form id="add-student-form">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div class="form-group">
+<label for="manual-student-id">Student ID</label>
+<input type="text" id="manual-student-id" class="form-control"
+required>
+</div>
+<div class="form-group">
+<label for="student-name">Full Name</label>
+<input type="text" id="student-name" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="student-department">Department</label>
+<select id="student-department" class="form-control" required>
+<option value="">Select Department</option>
+<option value="comp">Computer Engineering</option>
+<option value="it">Information Technology</option>
+<option value="mech">Mechanical Engineering</option>
+<option value="civil">Civil Engineering</option>
+<option value="entc">Electronics & Telecommunication</option>
+<option value="ai">Artificial Intelligence</option>
+</select>
+</div>
+<div class="form-group">
+<label for="student-semester">Semester</label>
+<select id="student-semester" class="form-control" required>
+<option value="">Select Semester</option>
+<option value="1">First</option>
+<option value="2">Second</option>
+<option value="3">Third</option>
+<option value="4">Fourth</option>
+<option value="5">Fifth</option>
+<option value="6">Sixth</option>
+<option value="7">Seventh</option>
+<option value="8">Eighth</option>
+</select>
+</div>
+<div class="form-group">
+<label for="student-email">Email</label>
+<input type="email" id="student-email" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="student-phone">Phone</label>
+<input type="tel" id="student-phone" class="form-control" required>
+</div>
+</div>
+<button type="submit" class="btn-primary"><i class="fas fa-plus-circle"></i>
+Add Student</button>
+</form>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Student List</h3>
+<i class="fas fa-list"></i>
+</div>
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search students...">
+</div>
+<table class="data-table">
+<thead>
+<tr>
+<th>Student ID</th>
+<th>Name</th>
+<th>Department</th>
+<th>Semester</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCOE2023001</td>
+<td>John Doe</td>
+<td>Computer Engineering</td>
+<td>4</td>
+<td>
+<button class="btn-secondary view-student-btn" dataid="
+SCOE2023001"><i class="fas fa-eye"></i> View</button>
+<button class="btn-secondary"><i class="fas fa-edit"></i></button>
+<button class="btn-secondary"><i class="fas fa-trash"></i></button>
+</td>
+</tr>
+<tr>
+<td>SCOE2023002</td>
+<td>Jane Smith</td>
+<td>Information Technology</td>
+<td>4</td>
+<td>
+<button class="btn-secondary view-student-btn" dataid="
+SCOE2023002"><i class="fas fa-eye"></i> View</button>
+<button class="btn-secondary"><i class="fas fa-edit"></i></button>
+<button class="btn-secondary"><i class="fas fa-trash"></i></button>
+</td>
+</tr>
+<tr>
+<td>SCOE2023003</td>
+<td>Robert Johnson</td>
+<td>Mechanical Engineering</td>
+<td>3</td>
+<td>
+<button class="btn-secondary view-student-btn" dataid="
+SCOE2023003"><i class="fas fa-eye"></i> View</button>
+<button class="btn-secondary"><i class="fas fa-edit"></i></button>
+<button class="btn-secondary"><i class="fas fa-trash"></i></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Marks Entry Module -->
+<div id="marks-entry-module" class="admin-module">
+<h2>Marks Entry</h2>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Select Criteria</h3>
+<i class="fas fa-filter"></i>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+<div class="form-group">
+<label for="semester-select">Semester</label>
+<select id="semester-select" class="form-control">
+<option value="">Select Semester</option>
+<option value="1">First</option>
+<option value="2">Second</option>
+<option value="3">Third</option>
+<option value="4">Fourth</option>
+<option value="5">Fifth</option>
+<option value="6">Sixth</option>
+<option value="7">Seventh</option>
+<option value="8">Eighth</option>
+</select>
+</div>
+<div class="form-group">
+<label for="branch-select">Branch</label>
+<select id="branch-select" class="form-control">
+<option value="">Select Branch</option>
+<option value="comp">Computer Engineering</option>
+<option value="it">Information Technology</option>
+<option value="mech">Mechanical Engineering</option>
+<option value="civil">Civil Engineering</option>
+<option value="entc">Electronics & Telecommunication</option>
+<option value="ai">Artificial Intelligence</option>
+</select>
+</div>
+<div class="form-group">
+<label for="subject-name">Subject Name</label>
+<input type="text" id="subject-name" class="form-control"
+placeholder="Enter subject name">
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Import Marks</h3>
+<i class="fas fa-file-import"></i>
+</div>
+<div class="file-upload" onclick="document.getElementById('marks-fileinput').
+click()">
+<i class="fas fa-cloud-upload-alt"></i>
+<p>Click to upload Excel file with marks</p>
+<p style="font-size: 0.8rem; color: var(--gray);">Supports .xls, .xlsx formats</
+p>
+</div>
+<input type="file" id="marks-file-input" hidden accept=".xls,.xlsx">
+<div class="template-download">
+<div class="template-card">
+<i class="fas fa-file-excel" style="color: var(--success); font-size: 2rem;"></
+i>
+<h4>Marks Template</h4>
+<p>Download the template for marks import</p>
+<button class="btn-success" onclick="downloadTemplate('marks')">
+<i class="fas fa-download"></i> Download
+</button>
+<div class="template-structure">
+<h4>Expected Format:</h4>
+<ul>
+<li><strong>Student ID:</strong> SCOE2023001</li>
+<li><strong>Student Name:</strong> John Doe</li>
+<li><strong>Internal Marks:</strong> 25/30</li>
+<li><strong>External Marks:</strong> 58/70</li>
+<li><strong>Subject Code:</strong> CS401</li>
+<li><strong>Semester:</strong> 4</li>
+</ul>
+</div>
+</div>
+</div>
+<button id="import-marks-btn" class="btn-primary"><i class="fas faupload"></
+i> Process Marks Import</button>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Marks Entry Table</h3>
+<i class="fas fa-table"></i>
+</div>
+<table class="data-table" id="marks-entry-table">
+<thead>
+<tr>
+<th>Student ID</th>
+<th>Name</th>
+<th>Internal Marks (/30)</th>
+<th>External Marks (/70)</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCOE2023001</td>
+<td>John Doe</td>
+<td><input type="number" min="0" max="30" value="25" class="formcontrol"></
+td>
+<td><input type="number" min="0" max="70" value="58" class="formcontrol"></
+td>
+<td>83</td>
+</tr>
+<tr>
+<td>SCOE2023002</td>
+<td>Jane Smith</td>
+<td><input type="number" min="0" max="30" value="28" class="formcontrol"></
+td>
+<td><input type="number" min="0" max="70" value="62" class="formcontrol"></
+td>
+<td>90</td>
+</tr>
+<tr>
+<td>SCOE2023003</td>
+<td>Robert Johnson</td>
+<td><input type="number" min="0" max"30" value="22" class="formcontrol"></
+td>
+<td><input type="number" min="0" max="70" value="51" class="formcontrol"></
+td>
+<td>73</td>
+</tr>
+</tbody>
+</table>
+<button class="btn-success" style="margin-top: 15px;"><i class="fas fasave"></
+i> Save Marks</button>
+</div>
+</div>
+<!-- Rules & Reports Module -->
+<div id="rules-reports-module" class="admin-module">
+<h2>Rules & Reports</h2>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Result Processing</h3>
+<i class="fas fa-cogs"></i>
+</div>
+<div style="display: flex; gap: 15px; flex-wrap: wrap;">
+<button id="run-rules-btn" class="btn-primary">
+<i class="fas fa-cogs"></i> Run Rules Engine
+</button>
+<button id="generate-gazette-btn" class="btn-accent">
+<i class="fas fa-file-pdf"></i> Generate Gazette
+</button>
+<button id="generate-marksheet-btn" class="btn-success">
+<i class="fas fa-file-certificate"></i> Generate Marksheets
+</button>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Reports</h3>
+<i class="fas fa-chart-bar"></i>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,
+1fr)); gap: 20px;">
+<div class="card">
+<h4>Department Results</h4>
+<p>View and analyze results by department</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fadownload"></
+i> Generate Report</button>
+</div>
+<div class="card">
+<h4>Subject Analysis</h4>
+<p>Performance analysis by subject</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fadownload"></
+i> Generate Report</button>
+</div>
+<div class="card">
+<h4>Student Progression</h4>
+<p>Track student progression over semesters</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fadownload"></
+i> Generate Report</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Faculty Management Module -->
+<div id="faculty-management-module" class="admin-module">
+<h2>Faculty Management</h2>
+<div class="stats-container">
+<div class="stat-card">
+<i class="fas fa-chalkboard-teacher"></i>
+<div class="value">64</div>
+<div class="label">Total Faculty</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-book-open"></i>
+<div class="value">42</div>
+<div class="label">Subjects Assigned</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-award"></i>
+<div class="value">78%</div>
+<div class="label">Avg. Student Rating</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-user-check"></i>
+<div class="value">92%</div>
+<div class="label">Faculty Availability</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Import Faculty Data</h3>
+<i class="fas fa-file-import"></i>
+</div>
+<div class="file-upload" onclick="document.getElementById('faculty-fileinput').
+click()">
+<i class="fas fa-cloud-upload-alt"></i>
+<p>Click to upload Excel file or drag and drop</p>
+<p style="font-size: 0.8rem; color: var(--gray);">Supports .xls, .xlsx formats</
+p>
+</div>
+<input type="file" id="faculty-file-input" hidden accept=".xls,.xlsx">
+<div class="template-download">
+<div class="template-card">
+<i class="fas fa-file-excel" style="color: var(--success); font-size: 2rem;"></
+i>
+<h4>Faculty Template</h4>
+<p>Download the template for faculty data import</p>
+<button class="btn-success" onclick="downloadTemplate('faculty')">
+<i class="fas fa-download"></i> Download
+</button>
+<div class="template-structure">
+<h4>Expected Format:</h4>
+<ul>
+<li><strong>Faculty ID:</strong> F001</li>
+<li><strong>Name:</strong> Dr. Rajesh Sharma</li>
+<li><strong>Email:</strong> rajesh.sharma@scoe.edu.in</li>
+<li><strong>Department:</strong> Computer Engineering</li>
+<li><strong>Designation:</strong> Professor</li>
+<li><strong>Subjects:</strong> Data Structures, Algorithms</li>
+</ul>
+</div>
+</div>
+</div>
+<button id="import-faculty-btn" class="btn-primary"><i class="fas faupload"></
+i> Process Import</button>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Add Faculty Manually</h3>
+<i class="fas fa-user-plus"></i>
+</div>
+<form id="add-faculty-form">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div class="form-group">
+<label for="faculty-id">Faculty ID</label>
+<input type="text" id="faculty-id" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="faculty-name">Full Name</label>
+<input type="text" id="faculty-name" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="faculty-department">Department</label>
+<select id="faculty-department" class="form-control" required>
+<option value="">Select Department</option>
+<option value="comp">Computer Engineering</option>
+<option value="it">Information Technology</option>
+<option value="mech">Mechanical Engineering</option>
+<option value="civil">Civil Engineering</option>
+<option value="entc">Electronics & Telecommunication</option>
+<option value="ai">Artificial Intelligence</option>
+</select>
+</div>
+<div class="form-group">
+<label for="faculty-designation">Designation</label>
+<select id="faculty-designation" class="form-control" required>
+<option value="">Select Designation</option>
+<option value="prof">Professor</option>
+<option value="assoc">Associate Professor</option>
+<option value="assist">Assistant Professor</option>
+<option value="lect">Lecturer</option>
+</select>
+</div>
+<div class="form-group">
+<label for="faculty-email">Email</label>
+<input type="email" id="faculty-email" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="faculty-phone">Phone</label>
+<input type="tel" id="faculty-phone" class="form-control" required>
+</div>
+</div>
+<div class="form-group">
+<label for="faculty-subjects">Subjects (comma separated)</label>
+<input type="text" id="faculty-subjects" class="form-control"
+placeholder="Data Structures, Algorithms">
+</div>
+<button type="submit" class="btn-primary"><i class="fas fa-plus-circle"></i>
+Add Faculty</button>
+</form>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Faculty List</h3>
+<i class="fas fa-list"></i>
+</div>
+<div class="form-group">
+<input type="text" class="form-control" placeholder="Search faculty...">
+</div>
+<table class="data-table">
+<thead>
+<tr>
+<th>Faculty ID</th>
+<th>Name</th>
+<th>Department</th>
+<th>Designation</th>
+<th>Email</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F001</td>
+<td>Dr. Rajesh Sharma</td>
+<td>Computer Engineering</td>
+<td>Professor</td>
+<td>rajesh.sharma@scoe.edu.in</td>
+<td>
+<button class="btn-secondary"><i class="fas fa-edit"></i></button>
+<button class="btn-secondary"><i class="fas fa-trash"></i></button>
+</td>
+</tr>
+<tr>
+<td>F002</td>
+<td>Prof. Meena Patel</td>
+<td>Information Technology</td>
+<td>Associate Professor</td>
+<td>meena.patel@scoe.edu.in</td>
+<td>
+<button class="btn-secondary"><i class="fas fa-edit"></i></button>
+<button class="btn-secondary"><i class="fas fa-trash"></i></button>
+</td>
+</tr>
+<tr>
+<td>F003</td>
+<td>Dr. Amit Kumar</td>
+<td>Mechanical Engineering</td>
+<td>Assistant Professor</td>
+<td>amit.kumar@scoe.edu.in</td>
+<td>
+<button class="btn-secondary"><i class="fas fa-edit"></i></button>
+<button class="btn-secondary"><i class="fas fa-trash"></i></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Attendance Module -->
+<div id="attendance-module" class="admin-module">
+<h2>Attendance Management</h2>
+<div class="stats-container">
+<div class="stat-card">
+<i class="fas fa-calendar-check"></i>
+<div class="value">92%</div>
+<div class="label">Overall Attendance</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-user-slash"></i>
+<div class="value">8%</div>
+<div class="label">Absent Percentage</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-exclamation-triangle"></i>
+<div class="value">42</div>
+<div class="label">Low Attendance Alerts</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-chart-line"></i>
+<div class="value">4%</div>
+<div class="label">Improvement This Month</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Import Attendance</h3>
+<i class="fas fa-file-import"></i>
+</div>
+<div class="file-upload" onclick="document.getElementById('attendance-fileinput').
+click()">
+<i class="fas fa-cloud-upload-alt"></i>
+<p>Click to upload Excel file or drag and drop</p>
+<p style="font-size: 0.8rem; color: var(--gray);">Supports .xls, .xlsx formats</
+p>
+</div>
+<input type="file" id="attendance-file-input" hidden accept=".xls,.xlsx">
+<div class="template-download">
+<div class="template-card">
+<i class="fas fa-file-excel" style="color: var(--success); font-size: 2rem;"></
+i>
+<h4>Attendance Template</h4>
+<p>Download the template for attendance import</p>
+<button class="btn-success" onclick="downloadTemplate('attendance')">
+<i class="fas fa-download"></i> Download
+</button>
+<div class="template-structure">
+<h4>Expected Format:</h4>
+<ul>
+<li><strong>Student ID:</strong> SCOE2023001</li>
+<li><strong>Student Name:</strong> John Doe</li>
+<li><strong>Date:</strong> 2023-04-15</li>
+<li><strong>Subject:</strong> Data Structures</li>
+<li><strong>Status:</strong> Present/Absent</li>
+<li><strong>Period:</strong> 1</li>
+</ul>
+</div>
+</div>
+</div>
+<button id="import-attendance-btn" class="btn-primary"><i class="fas faupload"></
+i> Process Import</button>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Mark Attendance</h3>
+<i class="fas fa-calendar-plus"></i>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+<div class="form-group">
+<label for="attendance-date">Date</label>
+<input type="date" id="attendance-date" class="form-control" required>
+</div>
+<div class="form-group">
+<label for="attendance-subject">Subject</label>
+<select id="attendance-subject" class="form-control" required>
+<option value="">Select Subject</option>
+<option value="ds">Data Structures</option>
+<option value="algo">Algorithms</option>
+<option value="dbms">Database Management</option>
+<option value="os">Operating Systems</option>
+</select>
+</div>
+<div class="form-group">
+<label for="attendance-period">Period</label>
+<select id="attendance-period" class="form-control" required>
+<option value="">Select Period</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+</select>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Student Attendance</h3>
+<i class="fas fa-users"></i>
+</div>
+<table class="data-table">
+<thead>
+<tr>
+<th>Student ID</th>
+<th>Name</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCOE2023001</td>
+<td>John Doe</td>
+<td>
+<select class="form-control">
+<option value="present">Present</option>
+<option value="absent">Absent</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>SCOE2023002</td>
+<td>Jane Smith</td>
+<td>
+<select class="form-control">
+<option value="present">Present</option>
+<option value="absent">Absent</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>SCOE2023003</td>
+<td>Robert Johnson</td>
+<td>
+<select class="form-control">
+<option value="present">Present</option>
+<option value="absent">Absent</option>
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+<button class="btn-success" style="margin-top: 15px;"><i class="fas fasave"></
+i> Save Attendance</button>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title>Attendance Reports</h3>
+<i class="fas fa-chart-bar"></i>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,
+1fr)); gap: 20px;">
+<div class="card">
+<h4>Student-wise Report</h4>
+<p>Generate attendance report for individual students</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fadownload"></
+i> Generate Report</button>
+</div>
+<div class="card">
+<h4>Subject-wise Report</h4>
+<p>View attendance statistics by subject</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fadownload"></
+i> Generate Report</button>
+</div>
+<div class="card">
+<h4>Department Report</h4>
+<p>Attendance overview by department</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fadownload"></
+i> Generate Report</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Analytics Module -->
+<div id="analytics-module" class="admin-module">
+<h2>Institutional Analytics</h2>
+<div class="stats-container">
+<div class="stat-card">
+<i class="fas fa-chart-line"></i>
+<div class="value">84%</div>
+<div class="label">Overall Pass Percentage</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-trophy"></i>
+<div class="value">24%</div>
+<div class="label">First Class with Distinction</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-user-graduate"></i>
+<div class="value">92%</div>
+<div class="label">Placement Rate</div>
+</div>
+<div class="stat-card">
+<i class="fas fa-book"></i>
+<div class="value">78%</div>
+<div class="label">Library Utilization</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Performance Analytics</h3>
+<i class="fas fa-chart-pie"></i>
+</div>
+<div class="chart-container">
+<canvas id="institutional-chart"></canvas>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Department-wise Performance</h3>
+<i class="fas fa-chart-bar"></i>
+</div>
+<div class="chart-container">
+<canvas id="department-chart"></canvas>
+</div>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Generate Analytics Report</h3>
+<i class="fas fa-file-export"></i>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,
+1fr)); gap: 20px;">
+<div class="form-group">
+<label for="report-type">Report Type</label>
+<select id="report-type" class="form-control">
+<option value="">Select Report Type</option>
+<option value="academic">Academic Performance</option>
+<option value="attendance">Attendance Analysis</option>
+<option value="placement">Placement Report</option>
+<option value="library">Library Usage</option>
+</select>
+</div>
+<div class="form-group">
+<label for="time-period">Time Period</label>
+<select id="time-period" class="form-control">
+<option value="">Select Time Period</option>
+<option value="monthly">Monthly</option>
+<option value="semester">Semester-wise</option>
+<option value="yearly">Yearly</option>
+</select>
+</div>
+</div>
+<button class="btn-success" style="margin-top: 15px;"><i class="fas fadownload"></
+i> Generate Report</button>
+</div>
+</div>
+<!-- Settings Module -->
+<div id="settings-module" class="admin-module">
+<h2>System Settings</h2>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">General Settings</h3>
+<i class="fas fa-cog"></i>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<div class="form-group">
+<label for="institution-name">Institution Name</label>
+<input type="text" id="institution-name" class="form-control"
+value="Saraswati College of Engineering">
+</div>
+<div class="form-group">
+<label for="institution-code">Institution Code</label>
+<input type="text" id="institution-code" class="form-control"
+value="SCOE">
+</div>
+<div class="form-group">
+<label for="academic-year">Academic Year</label>
+<select id="academic-year" class="form-control">
+<option value="2022-2023">2022-2023</option>
+<option value="2023-2024" selected>2023-2024</option>
+<option value="2024-2025">2024-2025</option>
+</select>
+</div>
+<div class="form-group">
+<label for="result-publishing">Result Publishing Mode</label>
+<select id="result-publishing" class="form-control">
+<option value="auto">Automatic</option>
+<option value="manual">Manual Approval</option>
+</select>
+</div>
+</div>
+<button class="btn-success" style="margin-top: 15px;"><i class="fas fasave"></
+i> Save Settings</button>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">Notification Settings</h3>
+<i class="fas fa-bell"></i>
+</div>
+<div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+<div style="display: flex; justify-content: space-between; align-items:
+center;">
+<div>
+<h4>Email Notifications</h4>
+<p>Send email notifications for important updates</p>
+</div>
+<label class="toggle-switch">
+<input type="checkbox" checked>
+<span class="slider"></span>
+</label>
+</div>
+<div style="display: flex; justify-content: space-between; align-items:
+center;">
+<div>
+<h4>SMS Alerts</h4>
+<p>Send SMS alerts for urgent notifications</p>
+</div>
+<label class="toggle-switch">
+<input type="checkbox">
+<span class="slider"></span>
+</label>
+</div>
+<div style="display: flex; justify-content: space-between; align-items:
+center;">
+<div>
+<h4>Low Attendance Alerts</h4>
+<p>Notify students and parents about low attendance</p>
+</div>
+<label class="toggle-switch">
+<input type="checkbox" checked>
+<span class="slider"></span>
+</label>
+</div>
+<div style="display: flex; justify-content: space-between; align-items:
+center;">
+<div>
+<h4>Result Announcements</h4>
+<p>Notify students when results are published</p>
+</div>
+<label class="toggle-switch">
+<input type="checkbox" checked>
+<span class="slider"></span>
+</label>
+</div>
+</div>
+<button class="btn-success" style="margin-top: 15px;"><i class="fas fasave"></
+i> Save Notification Settings</button>
+</div>
+<div class="card">
+<div class="card-header">
+<h3 class="card-title">System Maintenance</h3>
+<i class="fas fa-tools"></i>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,
+1fr)); gap: 20px;">
+<div class="card">
+<h4>Database Backup</h4>
+<p>Create a backup of the system database</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fadatabase"></
+i> Backup Now</button>
+</div>
+<div class="card">
+<h4>System Logs</h4>
+<p>View and download system activity logs</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fafile-
+alt"></i> View Logs</button>
+</div>
+<div class="card">
+<h4>Cache Management</h4>
+<p>Clear temporary system cache</p>
+<button class="btn-secondary" style="margin-top: 10px;"><i class="fas fabroom"></
+i> Clear Cache</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<script src="main.js"></script>
+
+</body>
+</html>
